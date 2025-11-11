@@ -24,8 +24,73 @@ The Token Dispenser App generates unique tokens for users in a queue-like system
 
 ## PROGRAM:
 
+### Main.Activity.Java
+```
+package com.example.tokendispenser; import android.os.Bundle;
+
+import android.view.View; import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity; import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity { EditText nameInput;
+
+Button getTokenButton; TextView tokenDisplay; ListView tokenListView; int tokenCount = 0;
+
+ArrayList<String> tokenList; ArrayAdapter<String> adapter; @Override
+
+protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); nameInput = findViewById(R.id.nameInput);
+
+getTokenButton = findViewById(R.id.getTokenButton); tokenDisplay = findViewById(R.id.tokenDisplay); tokenListView = findViewById(R.id.tokenListView); tokenList = new ArrayList<>();
+
+adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tokenList); tokenListView.setAdapter(adapter);
+
+getTokenButton.setOnClickListener(new View.OnClickListener() { @Override
+
+public void onClick(View v) {
+
+String name = nameInput.getText().toString().trim(); if (!name.isEmpty()) {
+
+tokenCount++;
+
+String tokenInfo = "Token " + tokenCount + " - " + name; tokenDisplay.setText("Issued: " + tokenInfo); tokenList.add(tokenInfo); adapter.notifyDataSetChanged();
+
+nameInput.setText(""); } else {
+
+Toast.makeText(MainActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show(); }
+
+} });
+
+} }
+```
+### activity_main.xml:
+```
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent"
+
+android:orientation="vertical" android:padding="20dp"> <TextView
+
+android:id="@+id/titleText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Token Dispenser" android:textSize="24sp" android:textStyle="bold" android:layout_gravity="center" android:paddingBottom="16dp" />
+
+<EditText android:id="@+id/nameInput" android:layout_width="match_parent"
+
+android:layout_height="wrap_content" android:hint="Enter your name" android:inputType="textPersonName" />
+
+<Button android:id="@+id/getTokenButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Get Token" android:layout_marginTop="10dp" />
+
+<TextView android:id="@+id/tokenDisplay" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Issued: " android:textSize="18sp" android:textStyle="italic" android:layout_marginTop="16dp" />
+
+<ListView android:id="@+id/tokenListView" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="10dp" />
+
+</LinearLayout>
+```
+
+
 
 ## OUTPUT:
+<img width="1908" height="1064" alt="Screenshot 2025-11-11 151711" src="https://github.com/user-attachments/assets/9eb95a0a-a61c-468b-a3e1-6b4e23537eb5" />
+
 
 ## RESULT:
 Thus, the Android app for generating and tracking token numbers in a queue is developed and the output is verified. 
